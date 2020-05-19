@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}
+  Légume {{ fruit.name }}
+{% endblock %}
+
+{% block body %}
+  <div class="row">
+    <div class="col-2">
+      <img src="{{asset('pictures/fruits/' ~ fruit.name ~ '.jpg') }}">
+    </div>
+    <div class="col">
+      <h2>{{ fruit.name }}</h2>
+      <div>
+        {% if fruit.origin != null %}
+          {{ fruit.origin }}
+        {% else %}
+          Inconnue pour cet aliment
+        {% endif %}
+      </div>
+      <h3>Les caractéristiques</h3>
+      <ul>
+        <li>Poid : {{ fruit.skill.weight }}</li>
+        <li>Valeur nutritive : {{ fruit.skill.nutritivValue }}</li>
+        <li>Couleur : {{ fruit.skill.color }}</li>
+      </ul>
+    </div>
+  </div>
+{% endblock %}

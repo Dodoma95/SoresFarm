@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}
+  Liste des légumes
+{% endblock %}
+
+{% block body %}
+
+<table class="table">
+  <tr class="thead-dark">
+    <th>Images</th>
+    <th>Nom</th>
+    <th>Prix</th>
+    <th>Provenance</th>
+    <th>Poid</th>
+    <th>Valeur nutritive</th>
+    <th>Couleur</th>
+  </tr>
+  {% for legume in legumes %}
+    <tr>
+      <td class="formated-picture"><img src="{{ asset("pictures/legumes/" ~ legume.name ~ "s.jpg") }}"></td>
+      <td><a href="{{ path('afficher_legume', {'name' : legume.name|lower}) }}">{{ legume.name }}</a></td>
+      <td>{{ legume.price }}</td>
+      <td>
+        {% if legume.origin != null %}
+          {{ legume.origin }}
+        {% else %}
+          Inconnue pour cet aliment
+        {% endif %}
+      </td>
+      <td>{{ legume.skill.weight }}</td>
+      <td>{{ legume.skill.nutritivValue }}</td>
+      <td>{{ legume.skill.color }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}
+  Liste des fruits
+{% endblock %}
+
+{% block body %}
+
+<table class="table">
+  <tr class="thead-dark">
+    <th>Images</th>
+    <th>Nom</th>
+    <th>Prix</th>
+    <th>Provenance</th>
+    <th>Poid</th>
+    <th>Valeur nutritive</th>
+    <th>Couleur</th>
+  </tr>
+  {% for fruit in fruits %}
+    <tr>
+      <td class="formated-picture"><img src="{{ asset("pictures/fruits/" ~ fruit.name|replace({' ': ''}) ~ ".jpg") }}"></td>
+      <td><a href="{{ path('afficher_fruit', {'name' : fruit.name|lower}) }}">{{ fruit.name }}</a></td>
+      <td>{{ fruit.price }}</td>
+      <td>
+        {% if fruit.origin != null %}
+          {{ fruit.origin }}
+        {% else %}
+          Inconnue pour cet aliment
+        {% endif %}
+      </td>
+      <td>{{ fruit.skill.weight }}</td>
+      <td>{{ fruit.skill.nutritivValue }}</td>
+      <td>{{ fruit.skill.color }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

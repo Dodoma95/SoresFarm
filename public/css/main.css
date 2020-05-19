@@ -1,0 +1,13 @@
+body{
+  background: green;
+}
+
+.formated-picture{
+  height: 170px;
+  width: 170px;
+}
+
+img{
+  max-width: 100%;
+  height: auto;
+}
