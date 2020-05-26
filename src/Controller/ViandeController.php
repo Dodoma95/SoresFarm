@@ -10,20 +10,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ViandeController extends AbstractController
 {
     /**
-     * @Route("/viande", name="viande")
+     * @Route("/viandes", name="viandes")
      */
     public function index(ViandeRepository $repository)
     {
         //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
         $viandes = $repository->findAll();
-        return $this->render('viande/index.html.twig', [
+        return $this->render('viande/viandes.html.twig', [
             'controller_name' => 'ViandeController',
             'viandes' => $viandes
         ]);
     }
 
     /**
-     * @Route("/show-viande/{id}", name="afficher_viande")
+     * @Route("/viande/{id}", name="afficher_viande")
      */
     public function afficherViande(Viande $viande)
     {

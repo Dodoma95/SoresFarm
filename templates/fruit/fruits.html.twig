@@ -19,7 +19,7 @@
   {% for fruit in fruits %}
     <tr>
       <td class="formated-picture"><img src="{{ asset("pictures/fruits/" ~ fruit.name|replace({' ': ''}) ~ ".jpg") }}"></td>
-      <td><a href="{{ path('afficher_fruit', {'name' : fruit.name|lower}) }}">{{ fruit.name }}</a></td>
+      <td><a href="{{ path('afficher_fruit', {'id' : fruit.id}) }}">{{ fruit.name }}</a></td>
       <td>{{ fruit.price }}</td>
       <td>
         {% if fruit.origin != null %}

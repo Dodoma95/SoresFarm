@@ -2,47 +2,134 @@
 
 namespace App\Entity;
 
-class Fruit{
+use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FruitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-  public $name;
-  public $price;
-  public $origin;
-  public $skill = [];
+/**
+ * @ORM\Entity(repositoryClass=FruitRepository::class)
+ */
+class Fruit
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
 
-  public static $fruits=[];
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
-  public function __construct($name,$price,$origin,$skill){
-    $this->name = $name;
-    $this->price = $price;
-    $this->origin = $origin;
-    $this->skill = $skill;
-    self::$fruits[] = $this;
-  }
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
 
-  public static function CreerFruit(){
-    $fr1 = New Fruit("Fruit de la passion", 2, "Réunion", [
-      'weight' => 15,
-      'nutritivValue' => 'Good for sexuality',
-      'color' => 'Orange'
-    ]);
-    $fr2 = New Fruit("Grenade", 5, "Madagacar", [
-      'weight' => 50,
-      'nutritivValue' => 'Miammmm',
-      'color' => 'Brown'
-    ]);
-    $fr3 = New Fruit("Kiwi", 2, null, [
-      'weight' => 12,
-      'nutritivValue' => 'Good for health',
-      'color' => 'Green'
-    ]);
-  }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $origin;
 
-  public static function getFruitbyName($name){
-    foreach(self::$fruits as $fruit){
-      if (strtolower($fruit->name) === $name){
-        return $fruit;
-      }
+    /**
+     * @ORM\Column(type="array")
+     */
+    private $skill = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity=Dispose::class, mappedBy="fruit")
+     */
+    private $disposes;
+
+    public function __construct()
+    {
+        $this->disposes = new ArrayCollection();
     }
-  }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPrice(): ?float
+    {
+        return $this->price;
+    }
+
+    public function setPrice(float $price): self
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    public function getOrigin(): ?string
+    {
+        return $this->origin;
+    }
+
+    public function setOrigin(string $origin): self
+    {
+        $this->origin = $origin;
+
+        return $this;
+    }
+
+    public function getSkill(): ?array
+    {
+        return $this->skill;
+    }
+
+    public function setSkill(array $skill): self
+    {
+        $this->skill = $skill;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Dispose[]
+     */
+    public function getDisposes(): Collection
+    {
+        return $this->disposes;
+    }
+
+    public function addDispose(Dispose $dispose): self
+    {
+        if (!$this->disposes->contains($dispose)) {
+            $this->disposes[] = $dispose;
+            $dispose->setFruit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDispose(Dispose $dispose): self
+    {
+        if ($this->disposes->contains($dispose)) {
+            $this->disposes->removeElement($dispose);
+            // set the owning side to null (unless already changed)
+            if ($dispose->getFruit() === $this) {
+                $dispose->setFruit(null);
+            }
+        }
+
+        return $this;
+    }
 }
