@@ -7,7 +7,7 @@
 {% block body %}
   <div class="row">
     <div class="col-2">
-      <img src="{{asset('pictures/legumes/' ~ legume.name ~ 's.jpg') }}">
+      <img src="{{asset('pictures/legumes/' ~ legume.name|replace({' ': ''}) ~ 's.jpg') }}">
     </div>
     <div class="col">
       <h2>{{ legume.name }}</h2>

@@ -4,68 +4,72 @@ namespace App\Controller;
 
 use App\Entity\Legume;
 use App\Entity\Fruit;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\FruitRepository;
+use App\Repository\LegumeRepository;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class FruitController extends AbstractController
 {
     /**
      * @Route("/", name="accueil")
      */
-    public function index()
+    public function accueil()
     {
-        return $this->render('pages/index.html.twig', [
+        return $this->render('pages/accueil.html.twig', [
             'controller_name' => 'FruitController',
         ]);
     }
 
     /**
-     * @Route("/legume", name="legume")
+     * @Route("/fruits", name="fruits")
      */
-    public function legume()
+    public function index(FruitRepository $repository)
     {
-        Legume::CreerLegume();
-        return $this->render('pages/legume.html.twig', [
+        //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
+        $fruits = $repository->findAll();
+        return $this->render('fruit/fruits.html.twig', [
             'controller_name' => 'FruitController',
-            "legumes" => Legume::$legumes
+            'fruits' => $fruits
         ]);
     }
 
     /**
-     * @Route("/legume/{name}", name="afficher_legume")
+     * @Route("/fruit/{id}", name="afficher_fruit")
      */
-    public function afficherLegume($name)
+    public function afficherViande(Fruit $fruit)
     {
-        Legume::CreerLegume();
-        $legume = Legume::getLegumeByName($name);
-        return $this->render('pages/showLegume.html.twig', [
+        //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
+        //$viande = $repository->find($id); --> symfony fait le lien tout seul
+        return $this->render('fruit/afficherFruit.html.twig', [
             'controller_name' => 'FruitController',
-            "legume" => $legume
+            'fruit' => $fruit
         ]);
     }
 
     /**
-     * @Route("/fruit", name="fruit")
+     * @Route("/legumes", name="legumes")
      */
-    public function fruit()
+    public function index1(LegumeRepository $repository)
     {
-        Fruit::CreerFruit();
-        return $this->render('pages/fruit.html.twig', [
+        //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
+        $legumes = $repository->findAll();
+        return $this->render('legume/legumes.html.twig', [
             'controller_name' => 'FruitController',
-            'fruits' => Fruit::$fruits
+            'legumes' => $legumes
         ]);
     }
 
     /**
-     * @Route("/fruit/{name}", name="afficher_fruit")
+     * @Route("/legume/{id}", name="afficher_legume")
      */
-    public function afficherFruit($name)
+    public function afficherLegume(Legume $legume)
     {
-        Fruit::CreerFruit();
-        $fruit = Fruit::getFruitByName($name);
-        return $this->render('pages/showFruit.html.twig', [
+        //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
+        //$viande = $repository->find($id); --> symfony fait le lien tout seul
+        return $this->render('legume/afficherLegume.html.twig', [
             'controller_name' => 'FruitController',
-            "fruit" => $fruit
+            'legume' => $legume
         ]);
     }
 }

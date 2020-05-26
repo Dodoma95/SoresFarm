@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass=DisposeRepository::class)
  * @UniqueEntity(fields={"farmer","viande"})
+ * @UniqueEntity(fields={"farmer","fruit"})
  */
 class Dispose
 {
@@ -25,6 +26,16 @@ class Dispose
     private $viande;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Fruit::class, inversedBy="disposes")
+     */
+    private $fruit;
+
+    /**
+    * @ORM\ManyToOne(targetEntity=Legume::class, inversedBy="disposes")
+    */
+    private $legume;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Farmer::class, inversedBy="disposes")
      */
     private $farmer;
@@ -32,7 +43,17 @@ class Dispose
     /**
      * @ORM\Column(type="integer")
      */
-    private $number;
+    private $numberViande;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numberFruit;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numberLegume;
 
     public function getId(): ?int
     {
@@ -51,6 +72,30 @@ class Dispose
         return $this;
     }
 
+    public function getFruit(): ?Fruit
+    {
+        return $this->fruit;
+    }
+
+    public function setFruit(?Fruit $fruit): self
+    {
+        $this->fruit = $fruit;
+
+        return $this;
+    }
+
+    public function getLegume(): ?Legume
+    {
+        return $this->legume;
+    }
+
+    public function setLegume(?Legume $legume): self
+    {
+        $this->legume = $legume;
+
+        return $this;
+    }
+
     public function getFarmer(): ?Farmer
     {
         return $this->farmer;
@@ -63,14 +108,38 @@ class Dispose
         return $this;
     }
 
-    public function getNumber(): ?int
+    public function getNumberViande(): ?int
     {
-        return $this->number;
+        return $this->numberViande;
     }
 
-    public function setNumber(int $number): self
+    public function setNumberViande(int $numberViande): self
     {
-        $this->number = $number;
+        $this->numberViande = $numberViande;
+
+        return $this;
+    }
+
+    public function getNumberFruit(): ?int
+    {
+        return $this->numberFruit;
+    }
+
+    public function setNumberFruit(int $numberFruit): self
+    {
+        $this->numberFruit = $numberFruit;
+
+        return $this;
+    }
+
+    public function getNumberLegume(): ?int
+    {
+        return $this->numberLegume;
+    }
+
+    public function setNumberLegume(int $numberLegume): self
+    {
+        $this->numberLegume = $numberLegume;
 
         return $this;
     }

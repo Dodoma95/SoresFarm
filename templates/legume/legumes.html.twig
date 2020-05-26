@@ -18,8 +18,8 @@
   </tr>
   {% for legume in legumes %}
     <tr>
-      <td class="formated-picture"><img src="{{ asset("pictures/legumes/" ~ legume.name ~ "s.jpg") }}"></td>
-      <td><a href="{{ path('afficher_legume', {'name' : legume.name|lower}) }}">{{ legume.name }}</a></td>
+      <td class="formated-picture"><img src="{{ asset("pictures/legumes/" ~ legume.name|replace({' ' : ''}) ~ "s.jpg") }}"></td>
+      <td><a href="{{ path('afficher_legume', {'id' : legume.id}) }}">{{ legume.name }}</a></td>
       <td>{{ legume.price }}</td>
       <td>
         {% if legume.origin != null %}
