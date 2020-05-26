@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-success">
   <a class="navbar-brand" href="{{ path("accueil") }}">SoresFarm</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -20,7 +20,10 @@
           <a class="dropdown-item" href="{{ path("legume") }}">Légumes</a>
           <a class="dropdown-item" href="{{ path("fruit") }}">Fruits</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
+          <a class="dropdown-item" href="{{ path("viande") }}">Nos viandes fermières</a>
+          <a class="dropdown-item" href="{{ path("animaux") }}">Les animaux</a>
+          <a class="dropdown-item" href="{{ path("regions") }}">Les régions</a>
+          <a class="dropdown-item" href="{{ path("farmers") }}">Les fermiers partenaires</a>
         </div>
       </li>
     </ul>

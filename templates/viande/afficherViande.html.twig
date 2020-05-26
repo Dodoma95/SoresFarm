@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}{{ viande.name }}{% endblock %}
+
+{% block body %}
+<div class="row align-items-center">
+    <div class="col-2 text-center">
+        <img src="{{asset('pictures/viandes/' ~ viande.image) }}">
+    </div>
+    <div class="col-auto">
+        <h2>{{ viande.name }} // {{ viande.animal }}</h2>
+        <div>Poids : {{ viande.poids }}</div>
+        <div>{{ viande.description }}</div>
+        <div>Disponibilité :
+            {% if viande.disponible %}
+                <span class="badge badge-success">OUI</span>
+            {% else %}
+                <span class="badge badge-danger">NON</span>
+            {% endif %}
+        </div>
+        <div><a href="{{path('afficher_animal', {'id':viande.typeanimal.id})}}" class="btn btn-primary">{{ viande.typeanimal.name }}</a></div>
+        <div>
+            {% for region in viande.regions %}
+                <a href="{{ path('afficher_region', {'id' : region.id}) }}" class="btn btn-warning">{{region.name}}</a>
+            {% endfor %}
+        </div>
+        <div>
+            {% for dispose in viande.disposes %}
+                <a href="{{ path('afficher_farmer', {'id' : dispose.farmer.id }) }}" class="btn btn-info">{{dispose.farmer.name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

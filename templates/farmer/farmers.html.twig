@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FarmerController!{% endblock %}
+
+{% block monTitre %}Nos fermiers partenaires{% endblock %}
+
+{% block body %}
+{% for farmer in farmers %}
+    <h2 class="border-bottom border-primary"><a href="{{path('afficher_farmer',{ 'id' : farmer.id} )}}">{{farmer.name}}</a></h2>
+    <h3>Liste des viandes proposées : </h3>
+    {% for dispose in farmer.disposes %}
+        <div class="row align-items-center">
+            <div class="col-2">
+                <img src="{{asset('pictures/viandes/' ~ dispose.viande.image)}}">
+            </div>
+            <div class="col">
+                <h2><a href="{{path('afficher_viande', {'id' : dispose.viande.id})}}">{{dispose.viande.name}}</a></h2>
+                <div>Nombre : {{dispose.number}}</div>
+            </div>
+        </div>
+    {% endfor %}
+{% endfor %}
+
+{% endblock %}

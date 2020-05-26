@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}Nos viandes disponibles{% endblock %}
+
+{% block body %}
+
+    {% for viande in viandes %}
+        <div class="row align-items-center">
+            <div class="col-2 text-center">
+                <div class="formated-picture"><img src="{{asset('pictures/viandes/' ~ viande.image) }}"></div>
+            </div>
+            <div class="col-auto">
+                <h2><a href="{{ path('afficher_viande', {'id' : viande.id}) }}">{{ viande.name }} // {{ viande.animal }}</a></h2>
+                <div>{{ viande.description }}</div>
+                <div><a href="{{path('afficher_animal', {'id':viande.typeanimal.id})}}" class="btn btn-primary">{{ viande.typeanimal.name }}</a></div>
+                <div>
+                    {% for region in viande.regions %}
+                        <a href="{{ path('afficher_region', {'id' : region.id}) }}" class="btn btn-warning">{{region.name}}</a>
+                    {% endfor %}
+                </div>
+                <div>
+                    {% for dispose in viande.disposes %}
+                        <a href="{{ path('afficher_farmer', {'id' : dispose.farmer.id }) }}" class="btn btn-info">{{dispose.farmer.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}
