@@ -5,11 +5,11 @@
 {% endblock %}
 
 {% block body %}
-  <div class="row">
-    <div class="col-2">
-      <img src="{{asset('pictures/fruits/' ~ fruit.name|replace({' ' : ''}) ~ '.jpg') }}">
+  <div class="row p-5">
+    <div class="d-inline px-5">
+      <img style="height: 300px; width: 300px; object-fit: cover;" src="{{asset('pictures/fruits/' ~ fruit.name|replace({' ' : ''}) ~ '.jpg') }}">
     </div>
-    <div class="col">
+    <div class="d-inline px-5">
       <h2>{{ fruit.name }}</h2>
       <div>
         {% if fruit.origin != null %}
@@ -20,9 +20,9 @@
       </div>
       <h3>Les caractéristiques</h3>
       <ul>
-        <li>Poid : {{ fruit.skill.weight }}</li>
-        <li>Valeur nutritive : {{ fruit.skill.nutritivValue }}</li>
-        <li>Couleur : {{ fruit.skill.color }}</li>
+        <li>Protéines : {{ fruit.skill.proteine }}</li>
+        <li>Lipides : {{ fruit.skill.lipide }}</li>
+        <li>Glucides : {{ fruit.skill.glucide }}</li>
       </ul>
     </div>
   </div>

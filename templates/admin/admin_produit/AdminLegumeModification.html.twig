@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}
+  {% if isModification %}
+    Modification {{legume.name}}
+  {% else %}
+    Ajout d'un légume
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+
+{{form_start(form)}}
+  <div class="form_produit">
+    <div>{{form_row(form.name, {'attr' : {'class' : 'text-danger'}, 'label' : 'Nom du produit'})}}</div>
+    <div>{{form_row(form.price)}}</div>
+    <div>{{form_row(form.origin)}}</div>
+    <div>{{form_row(form.imageFile)}}</div>
+    <div>{{form_row(form.proteine)}}</div>
+    <div>{{form_row(form.lipide)}}</div>
+    <div>{{form_row(form.glucide)}}</div>
+    {% if isModification %}
+      <input type="submit" class="btn btn-primary" value="Sauvegarder les modifications" style="width:100%">
+    {% else %}
+      <input type="submit" class="btn btn-primary" value="Ajouter" style="width:100%">
+    {% endif %}
+  </div>
+{{form_end(form)}}
+
+{% endblock %}

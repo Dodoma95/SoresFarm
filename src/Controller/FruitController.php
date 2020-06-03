@@ -56,7 +56,9 @@ class FruitController extends AbstractController
         $legumes = $repository->findAll();
         return $this->render('legume/legumes.html.twig', [
             'controller_name' => 'FruitController',
-            'legumes' => $legumes
+            'legumes' => $legumes,
+            'isOrigin' => false,
+            'isLessProteine' => false
         ]);
     }
 
@@ -72,4 +74,45 @@ class FruitController extends AbstractController
             'legume' => $legume
         ]);
     }
+
+    /**
+     * @Route("/legumes/origin/{origin}", name="legumesParOrigine")
+     */
+    public function legumesParOrigin(LegumeRepository $repository, $origin)
+    {
+        $legumes = $repository->getLegumeByOrigin('origin', '=', $origin);
+        return $this->render('legume/legumes.html.twig', [
+            'controller_name' => 'FruitController',
+            'legumes' => $legumes,
+            'isLessProteine' => false,
+            'isOrigin' => true
+        ]);
+    }
+
+    /**
+     * @Route("/legumes/proteine/{proteine}", name="legumesMoinsDeProteine")
+     */
+    public function legumesMoinsDeProteine(LegumeRepository $repository, $proteine)
+    {
+        $legumes = $repository->getLegumeByLessProteine('proteine', '<', $proteine);
+        return $this->render('legume/legumes.html.twig', [
+            'controller_name' => 'FruitController',
+            'legumes' => $legumes,
+            'isOrigin' => false,
+            'isLessProteine' => true
+        ]);
+    }
+
+    ///**
+    // * @Route("/legumes/{origin}", name="legumesParOrigine")
+    // */
+    //public function legumesParGlucide(LegumeRepository $repository, $origin)
+    //{
+    //    $legumes = $repository->getLegumeByOrigin('origin', '=', $origin);
+    //    return $this->render('legume/legumes.html.twig', [
+    //        'controller_name' => 'FruitController',
+    //        'legumes' => $legumes,
+    //        'isOrigin' => true
+    //    ]);
+    //}
 }

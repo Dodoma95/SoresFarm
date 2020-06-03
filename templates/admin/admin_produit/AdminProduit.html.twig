@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}Page d'administration{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+  <div class="alert alert-warning">
+    {{message}}
+  </div>
+{% endfor %}
+
+<a class="btn btn-success" href="{{path('CreateFruit')}}">Ajouter un fruit</a>||<a class="btn btn-success" href="{{path('CreateLegume')}}">Ajouter un légume</a>
+<table class="table">
+  <tr class="table">
+    <td>Image</td>
+    <td>Name</td>
+    <td>Origine</td>
+    <td>Price</td>
+    <td>Protéine</td>
+    <td>Lipide</td>
+    <td>Glucide</td>
+    <td>Actions</td>
+  </tr>
+  <tr class="table-info">
+    <td><strong>Les fruits</strong></td>
+    <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  {% for fruit in fruits %}
+    <tr>
+      <td><img style="height: 60px; width: 70px; object-fit: cover;" src="{{asset('pictures/fruits/' ~ fruit.image)}}"></td>
+      <td><strong>{{fruit.name}}</strong></td>
+      <td>{{fruit.origin}}</td>
+      <td>{{fruit.price}}</td>
+      <td>{{fruit.proteine}}</td>
+      <td>{{fruit.lipide}}</td>
+      <td>{{fruit.glucide}}</td>
+      <td>
+        <a class="btn btn-secondary" href="{{path('AdminFruitModification', {'id' : fruit.id})}}">Modifier</a>
+        <form method="POST" style="display:inline-block;" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet aliment??')" action="{{path('AdminFruitSuppression', {'id' : fruit.id})}}">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="_token" value="{{csrf_token('delete' ~ fruit.id)}}">
+          <input type="submit" class="btn btn-danger" value="supprimer">
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  <tr class="table-info">
+  <td><strong>Les légumes</strong></td>
+  <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+  </tr>
+  {% for legume in legumes %}
+    <tr>
+      <td><img style="height: 60px; width: 70px; object-fit: cover;" src="{{asset('pictures/legumes/' ~ legume.image)}}"></td>
+      <td><strong>{{legume.name}}</strong></td>
+      <td>{{legume.origin}}</td>
+      <td>{{legume.price}}</td>
+      <td>{{legume.proteine}}</td>
+      <td>{{legume.lipide}}</td>
+      <td>{{legume.glucide}}</td>
+      <td>
+        <a class="btn btn-secondary" href="{{path('AdminLegumeModification', {'id' : legume.id})}}">Modifier</a>
+        <form method="POST" style="display:inline-block;" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet aliment??')" action="{{path('AdminLegumeSuppression', {'id' : legume.id})}}">
+          <input type="hidden" name="_method" value="delete">
+          <input type="hidden" name="_token" value="{{csrf_token('delete' ~ legume.id)}}">
+          <input type="submit" class="btn btn-danger" value="supprimer">
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

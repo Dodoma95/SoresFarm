@@ -19,6 +19,26 @@ class LegumeRepository extends ServiceEntityRepository
         parent::__construct($registry, Legume::class);
     }
 
+    public function getLegumeByOrigin($propriete, $signe, $origin)
+    {
+        return $this->createQueryBuilder('l')
+                    ->andWhere('l.'.$propriete. ' '. $signe.' :val')
+                    ->setParameter('val', $origin)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+
+    public function getLegumeByLessProteine($propriete, $signe, $proteine)
+    {
+        return $this->createQueryBuilder('l')
+                    ->andWhere('l.'.$propriete. ' '. $signe.' :val')
+                    ->setParameter('val', $proteine)
+                    ->getQuery()
+                    ->getResult()
+                    ;
+    }
+
     // /**
     //  * @return Legume[] Returns an array of Legume objects
     //  */

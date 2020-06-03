@@ -55,66 +55,90 @@ class FarmFixtures extends Fixture
         $fruit1->setName("Fruit de la passion")
                 ->setPrice(2)
                 ->setOrigin("Ile de la Réunion")
+                ->setImage("fruits/fruitdelapassion.jpg")
                 ->setSkill([
-                    'weight' => 15,
-                    'nutritivValue' => 'Good for sexuality',
-                    'color' => 'Orange'
-                ]);
+                    'proteine' => '2.3',
+                    'lipide' => '0.7',
+                    'glucide' => '9.39'
+                ])
+                ->setProteine("2.3")
+                ->setLipide("0.7")
+                ->setGlucide("9.39");
         $manager->persist($fruit1);
 
         $fruit2 = new Fruit();
         $fruit2->setName("Grenade")
                 ->setPrice(5)
                 ->setOrigin("Madagascar")
+                ->setImage("fruits/grenade.jpg")
                 ->setSkill([
-                    'weight' => 50,
-                    'nutritivValue' => 'Miammmm',
-                    'color' => 'Brown'
-                ]);
+                    'proteine' => '1.29',
+                    'lipide' => '0.74',
+                    'glucide' => '14.2'
+                ])
+                ->setProteine("1.29")
+                ->setLipide("0.74")
+                ->setGlucide("14.2");
         $manager->persist($fruit2);
 
         $fruit3 = new Fruit();
         $fruit3->setName("Kiwi")
                 ->setPrice(2)
                 ->setOrigin("Martinique")
+                ->setImage("fruits/kiwi.jpg")
                 ->setSkill([
-                    'weight' => 12,
-                    'nutritivValue' => 'Good for health',
-                    'color' => 'Green'
-                ]);
+                    'proteine' => '1.2',
+                    'lipide' => '0.95',
+                    'glucide' => '8.44'
+                ])
+                ->setProteine("1.2")
+                ->setLipide("0.95")
+                ->setGlucide("8.44");
         $manager->persist($fruit3);
 
         $leg1 = new Legume();
         $leg1->setName("Courgette")
                 ->setPrice(2)
                 ->setOrigin("Spain")
+                ->setImage("legumes/courgette.jpg")
                 ->setSkill([
-                    'weight' => 200,
-                    'nutritivValue' => 'Good for health',
-                    'color' => 'green'
-                ]);
+                    'proteine' => '0.93',
+                    'lipide' => '0.36',
+                    'glucide' => '1.4'
+                ])
+                ->setProteine("0.93")
+                ->setLipide("0.36")
+                ->setGlucide("1.4");
         $manager->persist($leg1);
 
         $leg2 = new Legume();
         $leg2->setName("Haricot")
                 ->setPrice(5)
                 ->setOrigin("Francia")
+                ->setImage("legumes/haricot.jpg")
                 ->setSkill([
-                    'weight' => 10,
-                    'nutritivValue' => 'Very good for health',
-                    'color' => 'green'
-                ]);
+                    'proteine' => '2',
+                    'lipide' => '0.17',
+                    'glucide' => '3'
+                ])
+                ->setProteine("2")
+                ->setLipide("0.17")
+                ->setGlucide("3");
         $manager->persist($leg2);
 
         $leg3 = new Legume();
         $leg3->setName("Aubergine")
                 ->setPrice(2)
                 ->setOrigin("Allemagne")
+                ->setImage("legumes/aubergine.jpg")
                 ->setSkill([
-                    'weight' => 200,
-                    'nutritivValue' => 'Good for health',
-                    'color' => 'violet'
-                ]);
+                    'proteine' => '1.23',
+                    'lipide' => '0.28',
+                    'glucide' => '4.16'
+                ])
+                ->setProteine("1.23")
+                ->setLipide("0.28")
+                ->setGlucide("4");
         $manager->persist($leg3);
 
         $v1 = new Viande();
@@ -177,75 +201,75 @@ class FarmFixtures extends Fixture
             ->addRegion($r2);
         $manager->persist($v5);
 
-        $d1 = new Dispose();
-        $d1->setFarmer($f1)
-            ->setViande($v1)
-            ->setFruit($fruit1)
-            ->setLegume($leg1)
-            ->setNumberFruit(543)
-            ->setNumberLegume(765)
-            ->setNumberViande(150);
-        $manager->persist($d1);
-
-        $d2 = new Dispose();
-        $d2->setFarmer($f2)
-            ->setViande($v2)
-            ->setFruit($fruit2)
-            ->setLegume($leg2)
-            ->setNumberFruit(567)
-            ->setNumberLegume(324)
-            ->setNumberViande(1000);
-        $manager->persist($d2);
-
-        $d3 = new Dispose();
-        $d3->setFarmer($f3)
-            ->setViande($v3)
-            ->setFruit($fruit3)
-            ->setLegume($leg3)
-            ->setNumberFruit(45)
-            ->setNumberLegume(43)
-            ->setNumberViande(60);
-        $manager->persist($d3);
-
-        $d4 = new Dispose();
-        $d4->setFarmer($f1)
-            ->setViande($v4)
-            ->setFruit($fruit3)
-            ->setLegume($leg3)
-            ->setNumberFruit(32)
-            ->setNumberLegume(9754)
-            ->setNumberViande(78);
-        $manager->persist($d4);
-
-        $d5 = new Dispose();
-        $d5->setFarmer($f2)
-            ->setViande($v5)
-            ->setFruit($fruit1)
-            ->setLegume($leg1)
-            ->setNumberFruit(76)
-            ->setNumberLegume(7643)
-            ->setNumberViande(65);
-        $manager->persist($d5);
-
-        $d6 = new Dispose();
-        $d6->setFarmer($f3)
-            ->setViande($v1)
-            ->setFruit($fruit2)
-            ->setLegume($leg2)
-            ->setNumberFruit(5433)
-            ->setNumberLegume(765)
-            ->setNumberViande(567);
-        $manager->persist($d6);
-
-        $d7 = new Dispose();
-        $d7->setFarmer($f1)
-            ->setViande($v2)
-            ->setFruit($fruit2)
-            ->setLegume($leg2)
-            ->setNumberFruit(76)
-            ->setNumberLegume(7645)
-            ->setNumberViande(789);
-        $manager->persist($d7);
+        //$d1 = new Dispose();
+        //$d1->setFarmer($f1)
+        //    ->setViande($v1)
+        //    ->setFruit($fruit1)
+        //    ->setLegume($leg1)
+        //    ->setNumberFruit(543)
+        //    ->setNumberLegume(765)
+        //    ->setNumberViande(150);
+        //$manager->persist($d1);
+//
+        //$d2 = new Dispose();
+        //$d2->setFarmer($f2)
+        //    ->setViande($v2)
+        //    ->setFruit($fruit2)
+        //    ->setLegume($leg2)
+        //    ->setNumberFruit(567)
+        //    ->setNumberLegume(324)
+        //    ->setNumberViande(1000);
+        //$manager->persist($d2);
+//
+        //$d3 = new Dispose();
+        //$d3->setFarmer($f3)
+        //    ->setViande($v3)
+        //    ->setFruit($fruit3)
+        //    ->setLegume($leg3)
+        //    ->setNumberFruit(45)
+        //    ->setNumberLegume(43)
+        //    ->setNumberViande(60);
+        //$manager->persist($d3);
+//
+        //$d4 = new Dispose();
+        //$d4->setFarmer($f1)
+        //    ->setViande($v4)
+        //    ->setFruit($fruit3)
+        //    ->setLegume($leg3)
+        //    ->setNumberFruit(32)
+        //    ->setNumberLegume(9754)
+        //    ->setNumberViande(78);
+        //$manager->persist($d4);
+//
+        //$d5 = new Dispose();
+        //$d5->setFarmer($f2)
+        //    ->setViande($v5)
+        //    ->setFruit($fruit1)
+        //    ->setLegume($leg1)
+        //    ->setNumberFruit(76)
+        //    ->setNumberLegume(7643)
+        //    ->setNumberViande(65);
+        //$manager->persist($d5);
+//
+        //$d6 = new Dispose();
+        //$d6->setFarmer($f3)
+        //    ->setViande($v1)
+        //    ->setFruit($fruit2)
+        //    ->setLegume($leg2)
+        //    ->setNumberFruit(5433)
+        //    ->setNumberLegume(765)
+        //    ->setNumberViande(567);
+        //$manager->persist($d6);
+//
+        //$d7 = new Dispose();
+        //$d7->setFarmer($f1)
+        //    ->setViande($v2)
+        //    ->setFruit($fruit2)
+        //    ->setLegume($leg2)
+        //    ->setNumberFruit(76)
+        //    ->setNumberLegume(7645)
+        //    ->setNumberViande(789);
+        //$manager->persist($d7);
 
         $manager->flush();
     }

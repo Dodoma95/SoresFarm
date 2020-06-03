@@ -1,37 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block monTitre %}
-  Liste des légumes
+  Nos légumes
+  {% if isOrigin %}en provenance d'Espagne{% endif %}
+  {% if isLessProteine %}qui ont moins de protéines{% endif %}
 {% endblock %}
 
 {% block body %}
-
-<table class="table">
-  <tr class="thead-dark">
-    <th>Images</th>
-    <th>Nom</th>
-    <th>Prix</th>
-    <th>Provenance</th>
-    <th>Poid</th>
-    <th>Valeur nutritive</th>
-    <th>Couleur</th>
-  </tr>
-  {% for legume in legumes %}
-    <tr>
-      <td class="formated-picture"><img src="{{ asset("pictures/legumes/" ~ legume.name|replace({' ' : ''}) ~ "s.jpg") }}"></td>
-      <td><a href="{{ path('afficher_legume', {'id' : legume.id}) }}">{{ legume.name }}</a></td>
-      <td>{{ legume.price }}</td>
-      <td>
-        {% if legume.origin != null %}
-          {{ legume.origin }}
-        {% else %}
-          Inconnue pour cet aliment
-        {% endif %}
-      </td>
-      <td>{{ legume.skill.weight }}</td>
-      <td>{{ legume.skill.nutritivValue }}</td>
-      <td>{{ legume.skill.color }}</td>
-    </tr>
+<a href="{{path('legumes')}}" class="badge badge-info">Supprimer les filtres</a>||
+<a href="{{path('legumesParOrigine',{'origin':"Spain"})}}" class="badge badge-info">Légumes d'origine espagnole</a>||
+<a href="{{path('legumesMoinsDeProteine',{'proteine':"1"})}}" class="badge badge-info">Légumes qui ont le moins de protéines</a>
+  <div class="row text-center">
+    {% for legume in legumes %}
+      <div class="card mb-3 col-md-6 col-lg-4 col-xl-3 m-5">
+        <h3 class="card-header">{{ legume.name }}</h3>
+        <div class="card-body">
+          <h5 class="card-title">{{ legume.origin }}</h5>
+          <h6 class="card-subtitle text-muted">blablabla</h6>
+        </div>
+        <img style="height: 200px; width: 100%; display: block;" src="{{ asset("pictures/legumes/" ~ legume.image) }}" alt="Card image">
+        <div class="card-body">
+          <p class="card-text"><span style="font-size: large; font-weight: bold;">Prix {{ legume.price }}€</span></p>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Protéines : {{ legume.proteine }} grammes</li>
+          <li class="list-group-item">Lipides : {{ legume.lipide }} grammes</li>
+          <li class="list-group-item">Glucides : {{ legume.glucide }} grammes</li>
+        </ul>
+        <div class="card-body">
+          <a href="{{ path('afficher_legume', {'id' : legume.id}) }}" class="card-link" style="font-weight: bold;">{{ legume.name }}</a>
+          <a href="{{ path('fruits') }}" class="card-link" style="font-weight: bold;">Nos fruits</a>
+        </div>
+      </div>
     {% endfor %}
-</table>
+  </div>
+
 {% endblock %}
