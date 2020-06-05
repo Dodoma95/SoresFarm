@@ -2,13 +2,16 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\User;
 use App\Entity\Fruit;
 use App\Entity\Animal;
 use App\Entity\Farmer;
+use App\Entity\Legume;
 use App\Entity\Region;
 use App\Entity\Viande;
 use App\Entity\Dispose;
-use App\Entity\Legume;
+use App\Entity\Abonnement;
+use App\Entity\UserAbonnement;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 
@@ -16,6 +19,54 @@ class FarmFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+
+        $ab1 = new Abonnement();
+        $ab1->setName("Mélange de fruits");
+        $ab1->setPrice(10.99);
+        $ab1->setDescription("Un mélange de fruits de saisons");
+        $ab1->setOptions([
+            'Fruits secs' => 3.00,
+            'Miel bio' => 5.50
+        ]);
+        $manager->persist($ab1);
+
+        $ab2 = new Abonnement();
+        $ab2->setName("Mélange de légumes");
+        $ab2->setPrice(13.99);
+        $ab2->setDescription("Un mélange de légumes de saisons");
+        $ab2->setOptions([
+            'Fruits secs' => 3.00,
+            'Miel bio' => 5.50
+        ]);
+        $manager->persist($ab2);
+
+        $ab3 = new Abonnement();
+        $ab3->setName("Mélange de légumes&Fruits");
+        $ab3->setPrice(16.99);
+        $ab3->setDescription("Un mélange de légumes et de fruits de saisons");
+        $ab3->setOptions([
+            'Fruits secs' => 3.00,
+            'Miel bio' => 5.50
+        ]);
+        $manager->persist($ab3);
+
+        $us1 = new User();
+        $us1->setUsername('dodoma');
+        $us1->setPassword('dodoma');
+        $us1->setEmail("maillard.dorian60@gmail.com");
+        $us1->setRoles("ROLE_ADMIN");
+        $us1->setUpdatedAt(new \DateTime('now'));
+        $us1->setCreatedAt(new \DateTime('now'));
+        $manager->persist($us1);
+
+        $us2 = new User();
+        $us2->setUsername('sores');
+        $us2->setPassword('dodoma');
+        $us2->setEmail("soso@gmail.com");
+        $us2->setRoles("ROLE_USER");
+        $us2->setUpdatedAt(new \DateTime('now'));
+        $us2->setCreatedAt(new \DateTime('now'));
+        $manager->persist($us2);
 
         $f1 = new Farmer();
         $f1->setName("Alex le colapsologue");
@@ -55,7 +106,7 @@ class FarmFixtures extends Fixture
         $fruit1->setName("Fruit de la passion")
                 ->setPrice(2)
                 ->setOrigin("Ile de la Réunion")
-                ->setImage("fruits/fruitdelapassion.jpg")
+                ->setImage("fruitdelapassion.jpg")
                 ->setSkill([
                     'proteine' => '2.3',
                     'lipide' => '0.7',
@@ -63,14 +114,15 @@ class FarmFixtures extends Fixture
                 ])
                 ->setProteine("2.3")
                 ->setLipide("0.7")
-                ->setGlucide("9.39");
+                ->setGlucide("9.39")
+                ->setUpdatedAt(new \DateTime('now'));
         $manager->persist($fruit1);
 
         $fruit2 = new Fruit();
         $fruit2->setName("Grenade")
                 ->setPrice(5)
                 ->setOrigin("Madagascar")
-                ->setImage("fruits/grenade.jpg")
+                ->setImage("grenade.jpg")
                 ->setSkill([
                     'proteine' => '1.29',
                     'lipide' => '0.74',
@@ -78,14 +130,15 @@ class FarmFixtures extends Fixture
                 ])
                 ->setProteine("1.29")
                 ->setLipide("0.74")
-                ->setGlucide("14.2");
+                ->setGlucide("14.2")
+                ->setUpdatedAt(new \DateTime('now'));
         $manager->persist($fruit2);
 
         $fruit3 = new Fruit();
         $fruit3->setName("Kiwi")
                 ->setPrice(2)
                 ->setOrigin("Martinique")
-                ->setImage("fruits/kiwi.jpg")
+                ->setImage("kiwi.jpg")
                 ->setSkill([
                     'proteine' => '1.2',
                     'lipide' => '0.95',
@@ -93,14 +146,15 @@ class FarmFixtures extends Fixture
                 ])
                 ->setProteine("1.2")
                 ->setLipide("0.95")
-                ->setGlucide("8.44");
+                ->setGlucide("8.44")
+                ->setUpdatedAt(new \DateTime('now'));
         $manager->persist($fruit3);
 
         $leg1 = new Legume();
         $leg1->setName("Courgette")
                 ->setPrice(2)
                 ->setOrigin("Spain")
-                ->setImage("legumes/courgette.jpg")
+                ->setImage("courgette.jpg")
                 ->setSkill([
                     'proteine' => '0.93',
                     'lipide' => '0.36',
@@ -108,14 +162,15 @@ class FarmFixtures extends Fixture
                 ])
                 ->setProteine("0.93")
                 ->setLipide("0.36")
-                ->setGlucide("1.4");
+                ->setGlucide("1.4")
+                ->setUpdatedAt(new \DateTime('now'));
         $manager->persist($leg1);
 
         $leg2 = new Legume();
         $leg2->setName("Haricot")
                 ->setPrice(5)
                 ->setOrigin("Francia")
-                ->setImage("legumes/haricot.jpg")
+                ->setImage("haricot.jpg")
                 ->setSkill([
                     'proteine' => '2',
                     'lipide' => '0.17',
@@ -123,14 +178,15 @@ class FarmFixtures extends Fixture
                 ])
                 ->setProteine("2")
                 ->setLipide("0.17")
-                ->setGlucide("3");
+                ->setGlucide("3")
+                ->setUpdatedAt(new \DateTime('now'));
         $manager->persist($leg2);
 
         $leg3 = new Legume();
         $leg3->setName("Aubergine")
                 ->setPrice(2)
                 ->setOrigin("Allemagne")
-                ->setImage("legumes/aubergine.jpg")
+                ->setImage("aubergine.jpg")
                 ->setSkill([
                     'proteine' => '1.23',
                     'lipide' => '0.28',
@@ -138,7 +194,8 @@ class FarmFixtures extends Fixture
                 ])
                 ->setProteine("1.23")
                 ->setLipide("0.28")
-                ->setGlucide("4");
+                ->setGlucide("4")
+                ->setUpdatedAt(new \DateTime('now'));
         $manager->persist($leg3);
 
         $v1 = new Viande();
@@ -200,6 +257,32 @@ class FarmFixtures extends Fixture
             ->addRegion($r1)
             ->addRegion($r2);
         $manager->persist($v5);
+
+        $usab1 = new UserAbonnement();
+        $usab1->setOptions([
+            'Fruits secs' => true
+        ]);
+        $usab1->setState([
+            'STATE' => 'En cours'
+        ]);
+        $usab1->setAbonnement($ab1);
+        $usab1->setUser($us2);
+        $usab1->setUpdatedAt(new \DateTime('now'));
+        $usab1->setCreatedAt(new \DateTime('now'));
+        $manager->persist($usab1);
+
+        $usab2 = new UserAbonnement();
+        $usab2->setOptions([
+            'Fruits secs' => true
+        ]);
+        $usab2->setState([
+            'STATE' => 'En cours'
+        ]);
+        $usab2->setAbonnement($ab3);
+        $usab2->setUser($us2);
+        $usab2->setUpdatedAt(new \DateTime('now'));
+        $usab2->setCreatedAt(new \DateTime('now'));
+        $manager->persist($usab2);
 
         //$d1 = new Dispose();
         //$d1->setFarmer($f1)

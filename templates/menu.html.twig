@@ -12,6 +12,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ path("legumes") }}">Notre mission</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path("legumes") }}">Les abonnements</a>
+      </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Nos produits
@@ -23,10 +26,33 @@
           <a class="dropdown-item" href="{{ path("animaux") }}">Les animaux</a>
           <a class="dropdown-item" href="{{ path("regions") }}">Les régions</a>
           <a class="dropdown-item" href="{{ path("farmers") }}">Les fermiers partenaires</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{ path("AdminProduit") }}">Administration des produits</a>
         </div>
       </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% if not app.user %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('signup')}}">S'inscrire</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('login')}}">Se connecter</a>
+      </li>
+      {% else %}
+      <li class="nav-item dropleft">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{ app.user.username|capitalize }}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{{ path("user_account", {'id' : app.user.id}) }}">Mon compte</a>
+        <a class="dropdown-item" href="{{ path("user_abonnement", {'id' : app.user.id}) }}">Mes abonnements</a>
+        <a class="dropdown-item" href="{{path('logout')}}">Se déconnecter</a>
+        <div class="dropdown-divider"></div>
+        {% if is_granted('ROLE_ADMIN') %}
+          <a class="dropdown-item" href="{{ path("AdminProduit") }}">Administration des produits</a>
+        {% endif %}
+        </div>
+      </li>
+      {% endif %}
     </ul>
   </div>
 </nav>

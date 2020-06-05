@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes Abonnements{% endblock %}
+
+{% block monTitre %}
+    Vos Abonnements
+{% endblock %}
+
+{% block body %}
+    {% if userAbonnements %}
+        <div class="row text-center">
+            {% for userAbonnement in userAbonnements %}
+                <div class="card mb-3 col-3 m-5">
+                    <h3 class="card-header">{{ userAbonnement.abonnement.name }}</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ userAbonnement.abonnement.name }}</h5>
+                        <h6 class="card-subtitle text-muted">{{ userAbonnement.abonnement.description }}</h6>
+                    </div>
+                    <img style="height: 200px; width: 100%; display: block;" src="{{ asset("pictures/fruits/fruitdelapassion.jpg") }}" alt="Card image">
+                    <div class="card-body">
+                        <p class="card-text"><span style="font-size: large; font-weight: bold;">Prix {{ userAbonnement.abonnement.price }}€</span></p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% if userAbonnement.options != null %}
+                            <li class="list-group-item">Option : {{ userAbonnement.abonnement.options['Fruits secs'] }}€</li>
+                        {% endif %}
+                        <li class="list-group-item">Etat de la commande : {{ userAbonnement.state.STATE }}</li>
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div>{{user.username|capitalize}}, vous n'avez pas d'abonnement en cours</div>
+    {% endif %}
+{% endblock %}

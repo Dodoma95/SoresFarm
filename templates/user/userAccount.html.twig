@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes informations personnelles{% endblock %}
+
+{% block monTitre %}
+    Bienvenue {{ user.username|capitalize }} sur votre Espace Personnel
+{% endblock %}
+
+{% block body %}
+
+{{ form_start(form) }}
+    <div class="form_produit">
+        <div>{{form_row(form.username,{
+            'label' : 'Votre login'
+        })}}</div>
+        <div>{{form_row(form.email,{
+            'label' : 'Votre email'
+        })}}</div>
+        <div>{{form_row(form.password,{
+            'attr' : {'placeholder':'Saisir votre mot de passe à modifier'}
+        })}}</div>
+        <div>{{form_row(form.verifyPassword,{
+            'attr' : {'placeholder':'Confirmez votre nouveau mot de passe'},
+            'label' : 'Confirmez Password'
+        })}}</div>
+        <input type="submit" class="btn btn-primary" value="Valider les modifications" style="width:100%">
+    </div>
+{{ form_end(form) }}
+
+{% endblock %}
