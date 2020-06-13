@@ -3,12 +3,16 @@
 namespace App\Entity;
 
 use App\Repository\AbonnementRepository;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AbonnementRepository::class)
+ * @Vich\Uploadable
  */
 class Abonnement
 {
@@ -44,9 +48,34 @@ class Abonnement
      */
     private $userAbonnements;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="abonnement_image", fileNameProperty="image")
+     */
+    private $imageFile;
+
     public function __construct()
     {
         $this->userAbonnements = new ArrayCollection();
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+
+        //if ($this->imageFile instanceof UploadedFile) {
+        //    $this->updated_at = new \DateTime('now');
+        //}
+        return $this;
     }
 
     public function getId(): ?int
@@ -129,6 +158,18 @@ class Abonnement
                 $UserAbonnement->setAbonnement(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

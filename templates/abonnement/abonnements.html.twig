@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les abonnements{% endblock %}
+
+{% block monTitre %}
+    Les abonnements
+{% endblock %}
+
+{% block body %}
+
+    <div class="row text-center">
+        {% for abo in abos %}
+        <div class="card mb-3 col-3 m-5">
+            <a href="{{ path('afficher_abonnement', {'id' : abo.id}) }}"><h3 class="card-header">{{ abo.name }}</h3></a>
+            <div class="card-body">
+                <h5 class="card-title">{{ abo.description }}</h5>
+        </div>
+            <a href="{{ path('afficher_abonnement', {'id' : abo.id}) }}"><img style="height: 200px; width: 100%; display: block;" src="{{ asset("pictures/abonnements/" ~ abo.image) }}" alt="Card image"></a>
+            <div class="card-body">
+                <p class="card-text"><span style="font-size: large; font-weight: bold;">Prix {{ abo.price }}€</span></p>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Options disponibles</li>
+                {% if abo.options != null %}
+                    {% for key, option in abo.options %}
+                        <li class="list-group-item">{{ key }} ({{ option }}€)</li>
+                    {% endfor %}
+                {% else %}
+                    <li class="list-group-item"><span style="font-size: large; font-weight: bold;">Pas d'options disponibles pour cet abonnement</span></li>
+                {% endif %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -16,7 +16,7 @@ class FruitType extends AbstractType
             ->add('name')
             ->add('price')
             ->add('origin')
-            ->add('imageFile', FileType::class, ['required'=>false])
+            ->add('imageFile', FileType::class, ['required'=>false, 'label' => "Image du fruit"])
             ->add('proteine')
             ->add('lipide')
             ->add('glucide')

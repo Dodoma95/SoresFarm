@@ -37,7 +37,7 @@ class FruitController extends AbstractController
     /**
      * @Route("/fruit/{id}", name="afficher_fruit")
      */
-    public function afficherViande(Fruit $fruit)
+    public function afficherFruit(Fruit $fruit)
     {
         //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
         //$viande = $repository->find($id); --> symfony fait le lien tout seul
