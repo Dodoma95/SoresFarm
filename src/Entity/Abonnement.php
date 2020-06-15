@@ -41,7 +41,7 @@ class Abonnement
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private $options = [];
+    private $optionsTab = [];
 
     /**
      * @ORM\OneToMany(targetEntity=UserAbonnement::class, mappedBy="abonnement")
@@ -58,9 +58,15 @@ class Abonnement
      */
     private $imageFile;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Option::class, inversedBy="abonnements")
+     */
+    private $options;
+
     public function __construct()
     {
         $this->userAbonnements = new ArrayCollection();
+        $this->options = new ArrayCollection();
     }
 
     public function getImageFile(): ?File
@@ -119,14 +125,14 @@ class Abonnement
         return $this;
     }
 
-    public function getOptions(): ?array
+    public function getOptionsTab(): ?array
     {
-        return $this->options;
+        return $this->optionsTab;
     }
 
-    public function setOptions(?array $options): self
+    public function setOptionsTab(?array $optionsTab): self
     {
-        $this->options = $options;
+        $this->optionsTab = $optionsTab;
 
         return $this;
     }
@@ -170,6 +176,34 @@ class Abonnement
     public function setImage(?string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Option[]
+     */
+    public function getOptions(): Collection
+    {
+        return $this->options;
+    }
+
+    public function addOption(Option $option): self
+    {
+        if (!$this->options->contains($option)) {
+            $this->options[] = $option;
+            $option->addAbonnement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOption(Option $option): self
+    {
+        if ($this->options->contains($option)) {
+            $this->options->removeElement($option);
+            $option->removeAbonnement($this);
+        }
 
         return $this;
     }
