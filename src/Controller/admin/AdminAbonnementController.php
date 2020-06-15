@@ -2,13 +2,16 @@
 
 namespace App\Controller\admin;
 
+use App\Entity\Option;
 use App\Entity\Abonnement;
 use App\Form\AbonnementType;
 use App\Repository\AbonnementRepository;
+use App\Repository\OptionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class AdminAbonnementController extends AbstractController
 {
@@ -28,19 +31,28 @@ class AdminAbonnementController extends AbstractController
      * @Route("/admin/abonnement/create", name="CreateAbonnement")
      * @Route("/admin/abonnement/{id}", name="AdminAbonnementModification", methods="GET|POST")
      */
-    public function ajoutEtModificationAbonnement(Abonnement $abo = null, Request $request, EntityManagerInterface $entityManager)
+    public function ajoutEtModificationAbonnement(Abonnement $abo = null, OptionRepository $optionRepository, Request $request, EntityManagerInterface $entityManager)
     {
         if(!$abo) {
             $abo = new Abonnement();
         }
 
         $form = $this->createForm(AbonnementType::class, $abo);
-
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $modif = $abo->getId() !== null;
-            $entityManager->persist($abo);
-            $entityManager->flush();
+
+            if($abo->getOptions()) {
+                foreach ($abo->getOptions() as $option ) {
+                    $opt = $optionRepository->find($option->getId());
+                    $abo->addOption($opt);
+                }
+                $entityManager->persist($abo);
+                $entityManager->flush();
+            } else {
+                $entityManager->persist($abo);
+                $entityManager->flush();
+            }
             $this->addFlash("success", ($modif) ? "La modification a bien été effectuée" : "L'ajout a bien été effectué");
             return $this->redirectToRoute('AdminAbonnement');
         }

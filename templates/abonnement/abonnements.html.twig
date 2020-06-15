@@ -22,8 +22,8 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Options disponibles</li>
                 {% if abo.options != null %}
-                    {% for key, option in abo.options %}
-                        <li class="list-group-item">{{ key }} ({{ option }}€)</li>
+                    {% for option in abo.options %}
+                        <li class="list-group-item">({{ option.name }} : {{ option.price }}€)</li>
                     {% endfor %}
                 {% else %}
                     <li class="list-group-item"><span style="font-size: large; font-weight: bold;">Pas d'options disponibles pour cet abonnement</span></li>

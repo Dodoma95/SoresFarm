@@ -32,8 +32,8 @@
         <td>{{abo.price}}</td>
         <td>{{abo.description}}</td>
         <td>
-        {% for key, option in abo.options %}
-            {{ key }} ({{ option }}€)
+        {% for option in abo.options %}
+            <span>({{ option.name }})</span>
         {% endfor %}
         </td>
     <td>

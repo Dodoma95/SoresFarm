@@ -7,6 +7,7 @@ use App\Entity\Fruit;
 use App\Entity\Animal;
 use App\Entity\Farmer;
 use App\Entity\Legume;
+use App\Entity\Option;
 use App\Entity\Region;
 use App\Entity\Viande;
 use App\Entity\Dispose;
@@ -19,35 +20,46 @@ class FarmFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+        $opt1 = new Option();
+        $opt1->setName("Mélange de noix bio");
+        $opt1->setPrice(3);
+        $manager->persist($opt1);
+
+        $opt2 = new Option();
+        $opt2->setName("Miel paysan bio");
+        $opt2->setPrice(5);
+        $manager->persist($opt2);
+
+        $opt3 = new Option();
+        $opt3->setName("Tomate cerise");
+        $opt3->setPrice(2);
+        $manager->persist($opt3);
 
         $ab1 = new Abonnement();
         $ab1->setName("Mélange de fruits");
         $ab1->setPrice(10.99);
         $ab1->setDescription("Un mélange de fruits de saisons");
-        $ab1->setOptions([
-            'Fruits secs' => 3.00,
-            'Miel bio' => 5.50
-        ]);
+        $ab1->addOption($opt1);
+        $ab1->addOption($opt2);
+        $ab1->addOption($opt3);
         $manager->persist($ab1);
 
         $ab2 = new Abonnement();
         $ab2->setName("Mélange de légumes");
         $ab2->setPrice(13.99);
         $ab2->setDescription("Un mélange de légumes de saisons");
-        $ab2->setOptions([
-            'Fruits secs' => 3.00,
-            'Miel bio' => 5.50
-        ]);
+        $ab2->addOption($opt1);
+        $ab2->addOption($opt2);
+        $ab2->addOption($opt3);
         $manager->persist($ab2);
 
         $ab3 = new Abonnement();
         $ab3->setName("Mélange de légumes&Fruits");
         $ab3->setPrice(16.99);
         $ab3->setDescription("Un mélange de légumes et de fruits de saisons");
-        $ab3->setOptions([
-            'Fruits secs' => 3.00,
-            'Miel bio' => 5.50
-        ]);
+        $ab3->addOption($opt1);
+        $ab3->addOption($opt2);
+        $ab3->addOption($opt3);
         $manager->persist($ab3);
 
         $us1 = new User();
