@@ -14,3 +14,7 @@ vich_uploader:
             uri_prefix: /pictures/abonnements
             upload_destination: '%kernel.project_dir%/public/pictures/abonnements'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        option_image:
+            uri_prefix: /pictures/options
+            upload_destination: '%kernel.project_dir%/public/pictures/options'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

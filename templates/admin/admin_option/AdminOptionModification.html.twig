@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}
+  {% if isModification %}
+    Modification {{opt.name}}
+  {% else %}
+    Ajout d'options
+  {% endif %}
+{% endblock %}
+
+{% block body %}
+
+{{form_start(form)}}
+  <div class="form_produit">
+    <div>{{form_row(form.name, {'label' : 'Nom de l\'option'})}}</div>
+    <div>{{form_row(form.price)}}</div>
+    <div>{{form_row(form.imageFile)}}</div>
+    {% if isModification %}
+      <input type="submit" class="btn btn-primary" value="Sauvegarder les modifications" style="width:100%">
+    {% else %}
+      <input type="submit" class="btn btn-primary" value="Créer" style="width:100%">
+    {% endif %}
+  </div>
+{{form_end(form)}}
+
+{% endblock %}

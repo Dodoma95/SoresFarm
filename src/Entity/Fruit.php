@@ -13,6 +13,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=FruitRepository::class)
+ * @ORM\Table(name="`fruit`")
  * @Vich\Uploadable
  */
 class Fruit

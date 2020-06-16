@@ -5,11 +5,15 @@ namespace App\Entity;
 use App\Repository\OptionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=OptionRepository::class)
  * @ORM\Table(name="`option`")
+ * @Vich\Uploadable
  */
 class Option
 {
@@ -26,7 +30,7 @@ class Option
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $price;
 
@@ -35,9 +39,34 @@ class Option
      */
     private $abonnements;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="option_image", fileNameProperty="image")
+     */
+    private $imageFile;
+
     public function __construct()
     {
         $this->abonnements = new ArrayCollection();
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile = null): self
+    {
+        $this->imageFile = $imageFile;
+
+        //if ($this->imageFile instanceof UploadedFile) {
+        //    $this->updated_at = new \DateTime('now');
+        //}
+        return $this;
     }
 
     public function getId(): ?int
@@ -91,6 +120,18 @@ class Option
         if ($this->abonnements->contains($abonnement)) {
             $this->abonnements->removeElement($abonnement);
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

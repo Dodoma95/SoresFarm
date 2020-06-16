@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}Page d'administration des options{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Félicitation!</h4>
+        <p class="mb-0">{{message}}</p>
+    </div>
+{% endfor %}
+
+<a class="btn btn-primary" href="{{path('CreateOption')}}">Créer une option</a>
+<table class="table">
+    <tr class="table">
+        <td>Image</td>
+        <td>Name</td>
+        <td>Price</td>
+    </tr>
+    {% for opt in opts %}
+    <tr>
+        <td><img style="height: 60px; width: 70px; object-fit: cover;" src="{{asset('pictures/options/' ~ opt.image)}}"></td>
+        <td><strong>{{opt.name}}</strong></td>
+        <td>{{opt.price}}</td>
+    <td>
+        <a class="btn btn-secondary" href="{{path('AdminOptionModification', {'id' : opt.id})}}">Modifier</a>
+        <form method="POST" style="display:inline-block;" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette option??')" action="{{path('AdminOptionSuppression', {'id' : opt.id})}}">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="_token" value="{{csrf_token('delete' ~ opt.id)}}">
+            <input type="submit" class="btn btn-danger" value="supprimer">
+        </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

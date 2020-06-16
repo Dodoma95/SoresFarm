@@ -47,9 +47,15 @@ class AdminAbonnementController extends AbstractController
                     $opt = $optionRepository->find($option->getId());
                     $abo->addOption($opt);
                 }
+                if(!empty($abo->getImageFile())) {
+                    $abo->setImage($abo->getImageFile());
+                }
                 $entityManager->persist($abo);
                 $entityManager->flush();
             } else {
+                if(!empty($abo->getImageFile())) {
+                    $abo->setImage($abo->getImageFile());
+                }
                 $entityManager->persist($abo);
                 $entityManager->flush();
             }

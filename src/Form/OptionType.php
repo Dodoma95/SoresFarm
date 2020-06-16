@@ -6,6 +6,7 @@ use App\Entity\Option;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class OptionType extends AbstractType
 {
@@ -14,7 +15,7 @@ class OptionType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('abonnements')
+            ->add('imageFile', FileType::class, ['required'=>false, 'label' => "Image pour l'option"])
         ;
     }
 

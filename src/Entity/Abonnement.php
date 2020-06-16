@@ -12,6 +12,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=AbonnementRepository::class)
+ * @ORM\Table(name="`abonnement`")
  * @Vich\Uploadable
  */
 class Abonnement
@@ -49,7 +50,7 @@ class Abonnement
     private $userAbonnements;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255)
      */
     private $image;
 

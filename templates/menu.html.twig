@@ -50,6 +50,7 @@
         {% if is_granted('ROLE_ADMIN') %}
           <a class="dropdown-item" href="{{ path("AdminProduit") }}">Administration des produits</a>
           <a class="dropdown-item" href="{{ path("AdminAbonnement") }}">Administration des abonnements</a>
+          <a class="dropdown-item" href="{{ path("AdminOption") }}">Administration des options</a>
         {% endif %}
         </div>
       </li>
