@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block monTitre %}Page d'administration des utilisateurs{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-dismissible alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4 class="alert-heading">Félicitation!</h4>
+        <p class="mb-0">{{message}}</p>
+    </div>
+{% endfor %}
+
+<a class="btn btn-primary" href="{{path('signup')}}">Créer un utilisateur</a>
+<table class="table">
+    <tr class="table">
+        <td>Username</td>
+        <td>Role</td>
+        <td>Email</td>
+        <td><strong>Les abonnements</strong></td>
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td><strong>{{user.username}}</strong></td>
+        <td>{{user.roles[0]}}</td>
+        <td>{{user.email}}</td>
+        <td>
+        {% if user.userAbonnements.count > 0 %}
+            {% for abo in user.userAbonnements %}
+                <span>({{ abo.abonnement.name }})</span>
+            {% endfor %}
+        {% else %}
+            L'utilisateur n'a pas encore d'abonnement
+        {% endif %}
+        </td>
+    <td>
+        <a class="btn btn-secondary" href="{{path('AdminUserRoleModification', {'id' : user.id})}}">
+            {% if user.roles[0] == 'ROLE_ADMIN' %}
+                Passer sur le rôle User
+            {% else %}
+                Passer sur le rôle Admin
+            {% endif %}
+        </a>
+        <form method="POST" style="display:inline-block;" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cet utilisateur??')" action="{{path('AdminUserSuppression', {'id' : user.id})}}">
+            <input type="hidden" name="_method" value="delete">
+            <input type="hidden" name="_token" value="{{csrf_token('delete' ~ user.id)}}">
+            <input type="submit" class="btn btn-danger" value="supprimer">
+        </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
