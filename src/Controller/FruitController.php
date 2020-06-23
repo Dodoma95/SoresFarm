@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Legume;
 use App\Entity\Fruit;
+use App\Entity\Legume;
 use App\Repository\FruitRepository;
 use App\Repository\LegumeRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -24,10 +26,14 @@ class FruitController extends AbstractController
     /**
      * @Route("/fruits", name="fruits")
      */
-    public function index(FruitRepository $repository)
+    public function index(FruitRepository $repository, PaginatorInterface $paginator, Request $request)
     {
         //$repository = $this->getDoctrine()->getRepository(Viande::class); du coup pas besoin car symfony fait le lien en l'indiquant en argument
-        $fruits = $repository->findAll();
+        $fruits = $paginator->paginate(
+            $repository->findAllWithPagination(), /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            6 /*limit per page*/
+        );
         return $this->render('fruit/fruits.html.twig', [
             'controller_name' => 'FruitController',
             'fruits' => $fruits
