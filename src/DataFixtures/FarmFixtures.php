@@ -80,6 +80,16 @@ class FarmFixtures extends Fixture
         $us2->setCreatedAt(new \DateTime('now'));
         $manager->persist($us2);
 
+        $us3 = new User();
+        $us3->setUsername('dorian');
+        $us3->setPassword('dodoma');
+        $us3->setVerifyPassword('dodoma');
+        $us3->setEmail("soso@gmail.com");
+        $us3->setRoles("ROLE_ADMIN");
+        $us3->setUpdatedAt(new \DateTime('now'));
+        $us3->setCreatedAt(new \DateTime('now'));
+        $manager->persist($us3);
+
         $f1 = new Farmer();
         $f1->setName("Alex le colapsologue");
         $manager->persist($f1);
