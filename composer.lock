@@ -2245,19 +2245,21 @@
         },
         {
             "name": "sendgrid/php-http-client",
-            "version": "3.10.7",
+            "version": "3.10.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sendgrid/php-http-client.git",
-                "reference": "f01e6fe7e33b811715ba93da3f85573e175bb801"
+                "reference": "51e69a9acdb7a1a5ebb4420d3f54917d7341076f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/f01e6fe7e33b811715ba93da3f85573e175bb801",
-                "reference": "f01e6fe7e33b811715ba93da3f85573e175bb801",
+                "url": "https://api.github.com/repos/sendgrid/php-http-client/zipball/51e69a9acdb7a1a5ebb4420d3f54917d7341076f",
+                "reference": "51e69a9acdb7a1a5ebb4420d3f54917d7341076f",
                 "shasum": ""
             },
             "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
                 "php": ">=5.6"
             },
             "require-dev": {
@@ -2293,7 +2295,7 @@
                 "rest",
                 "sendgrid"
             ],
-            "time": "2020-06-10T20:13:05+00:00"
+            "time": "2020-06-24T19:34:13+00:00"
         },
         {
             "name": "sendgrid/sendgrid",
